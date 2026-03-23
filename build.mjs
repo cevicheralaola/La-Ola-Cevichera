@@ -12,14 +12,17 @@ const onNetlify = String(process.env.NETLIFY || '').toLowerCase() === 'true';
 
 if (!url || !key) {
   if (onNetlify) {
-    console.error('');
-    console.error('NETLIFY: Faltan variables de entorno obligatorias.');
-    console.error('  En el sitio: Site configuration → Environment variables → Add a variable');
-    console.error('  - SUPABASE_URL   = https://TU_REF.supabase.co');
-    console.error('  - SUPABASE_ANON_KEY = (anon public de Supabase → Settings → API)');
-    console.error('  Luego: Deploys → Trigger deploy → Clear cache and deploy site.');
-    console.error('');
-    process.exit(1);
+    const stub = `/* Build Netlify sin SUPABASE_*: añade variables y redeploy. */
+window.LAOLA_SUPABASE_URL = '';
+window.LAOLA_SUPABASE_ANON_KEY = '';
+`;
+    writeFileSync(outPath, stub, 'utf8');
+    console.warn('');
+    console.warn('NETLIFY: Falta SUPABASE_URL o SUPABASE_ANON_KEY.');
+    console.warn('  Site → Environment variables: SUPABASE_URL, SUPABASE_ANON_KEY');
+    console.warn('  Luego Deploys → Trigger deploy. (El deploy sigue OK; la app pedirá config hasta entonces.)');
+    console.warn('');
+    process.exit(0);
   }
   console.log('build.mjs: sin SUPABASE_URL/SUPABASE_ANON_KEY — se mantiene supabase-config.js (solo desarrollo local).');
   process.exit(0);
