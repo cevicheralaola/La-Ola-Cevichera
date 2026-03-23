@@ -30,9 +30,27 @@ Copia `supabase-config.example.js` a `supabase-config.js` y pega la **anon key**
 
 ## 3. Despliegue en Netlify
 
-- Conecta el repo Git.
-- **Build command:** `npm run build`
-- **Publish directory:** `.` (raíz del repo)
+1. Conecta el repo Git a Netlify (**Add new site → Import an existing project**).
+2. Deja **Build command:** `npm run build` y **Publish directory:** `.` (un solo punto = raíz del repo).  
+   `netlify.toml` ya lo define; si Netlify los duplica, deben coincidir.
+3. **Antes del primer deploy que funcione:** entra en **Site configuration → Environment variables** y crea **exactamente** (mayúsculas):
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`  
+   Luego **Deploys → Trigger deploy → Clear cache and deploy site**.
+
+### Si “te sale” el aviso amarillo en el login (configura Supabase…)
+
+Eso es casi siempre **Netlify sin variables** o **deploy sin regenerar** `supabase-config.js`.
+
+1. Comprueba en **Site → Environment variables** que existan `SUPABASE_URL` y `SUPABASE_ANON_KEY` (sin espacios al inicio/fin).
+2. Abre el último **Deploy log**: si el build falla, ahora debería decir que faltan esas variables (el script sale con error a propósito en Netlify).
+3. Tras añadir las variables: **Trigger deploy → Clear cache and deploy site**.
+4. En el sitio publicado, **F12 → Network** y recarga: `supabase-config.js` debe responder **200** y en el cuerpo verse `LAOLA_SUPABASE_ANON_KEY` con una cadena larga (no vacía).
+
+### Si el build falla
+
+- **“npm run build” failed:** en el log busca el mensaje de variables; añádelas en Netlify.
+- **Página en blanco:** revisa la consola (F12) por errores de script o 404 a `supabase.min.js` / `supabase-config.js`.
 
 ## 4. Instalar en el celular (PWA)
 

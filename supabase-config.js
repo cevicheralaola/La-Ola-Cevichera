@@ -1,4 +1,3 @@
-/* Configuración local. En Netlify el build regenera este archivo desde variables de entorno.
-   Obtén la anon key: Supabase → Project Settings → API → anon public */
-window.LAOLA_SUPABASE_URL = 'https://jzgkckxbrxhrgpzbppjs.supabase.co';
-window.LAOLA_SUPABASE_ANON_KEY = '';
+/* Generado en build (Netlify). No edites a mano en producción. */
+window.LAOLA_SUPABASE_URL = "https://test.supabase.co";
+window.LAOLA_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZXN0IjoxfQ.testkeylongenoughforlengthcheck____";
