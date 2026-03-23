@@ -1,0 +1,8 @@
+{
+  "name": "la-ola-cevichera",
+  "private": true,
+  "description": "POS La Ola — estático + Supabase",
+  "scripts": {
+    "build": "node scripts/generate-supabase-config.mjs"
+  }
+}
