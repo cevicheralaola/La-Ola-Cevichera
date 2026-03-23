@@ -3,6 +3,6 @@
   "private": true,
   "description": "POS La Ola — estático + Supabase",
   "scripts": {
-    "build": "node scripts/generate-supabase-config.mjs"
+    "build": "node build.mjs"
   }
 }
