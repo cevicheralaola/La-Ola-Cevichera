@@ -8,7 +8,8 @@ LA OLA — Publicar (resumen)
 
 2) NETLIFY (variables en tu sitio)
    SUPABASE_URL = https://tu-ref.supabase.co
-   SUPABASE_ANON_KEY = la clave anon de Supabase (Settings → API)
+   SUPABASE_ANON_KEY = clave anon o publishable (Settings → API)
+   (Si el build no las lee: puedes subir supabase-config.js con URL y clave al repo y redeploy.)
 
 3) GIT
    Push al repo. Netlify despliega solo.
