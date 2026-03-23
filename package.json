@@ -2,6 +2,9 @@
   "name": "la-ola-cevichera",
   "private": true,
   "description": "POS La Ola — estático + Supabase",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "node build.mjs"
   }

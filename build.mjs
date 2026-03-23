@@ -5,8 +5,16 @@ import { dirname, join } from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outPath = join(__dirname, 'supabase-config.js');
 
-const url = (process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '').trim();
-const key = (process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '').trim();
+function stripQuotes(s) {
+  s = String(s || '').trim();
+  if (s.length >= 2 && ((s[0] === '"' && s[s.length - 1] === '"') || (s[0] === "'" && s[s.length - 1] === "'"))) return s.slice(1, -1).trim();
+  return s;
+}
+
+let url = stripQuotes(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '');
+let key = stripQuotes(process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '');
+const mHttp = url.match(/^http:\/\/([a-z0-9.-]+\.supabase\.co)\/?$/i);
+if (mHttp) url = 'https://' + mHttp[1];
 
 const onNetlify = String(process.env.NETLIFY || '').toLowerCase() === 'true';
 
@@ -34,4 +42,4 @@ window.LAOLA_SUPABASE_ANON_KEY = ${JSON.stringify(key)};
 `;
 
 writeFileSync(outPath, body, 'utf8');
-console.log('supabase-config.js generado OK para deploy.');
+console.log('supabase-config.js generado OK. URL:', url.replace(/^(https:\/\/[^/]+).*/, '$1'), '| longitud anon key:', key.length);

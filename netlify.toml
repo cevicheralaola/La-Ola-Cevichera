@@ -1,6 +1,7 @@
 [build]
   publish = "."
-  command = "npm run build"
+  # Evita depender de npm si algo falla en el entorno; el script es solo Node.
+  command = "node build.mjs"
 
 [[headers]]
   for = "/sw.js"
